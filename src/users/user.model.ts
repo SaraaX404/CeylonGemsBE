@@ -5,13 +5,13 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  NIC: {
+  nic: {
     type: String,
     required: true,
   },
-  Type: {
+  type: {
     type: String,
-    enum: ['SELLER, BUYER'],
+    enum: ['SELLER', 'BUYER'],
     required: true,
   },
   mobile: {
@@ -27,3 +27,14 @@ export const UserSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+
+export interface User extends mongoose.Document{
+  id:string;
+  name:string;
+  nic:string;
+  type:string;
+  mobile:string;
+  email:string;
+  password:string;
+}
