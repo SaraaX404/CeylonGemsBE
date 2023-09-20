@@ -9,10 +9,9 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  type: {
-    type: String,
-    enum: ['SELLER', 'BUYER'],
-    required: true,
+  rating: {
+    type:Number,
+    default: 0
   },
   mobile: {
     type: String,
@@ -26,6 +25,16 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  kyc:{
+    verified:{
+      type:Boolean,
+      default:false
+    },
+    data:{
+      type:String,
+      required:true
+    }
+  }
 });
 
 
@@ -37,4 +46,8 @@ export interface User extends mongoose.Document{
   mobile:string;
   email:string;
   password:string;
+  kyc:{
+    verified:boolean,
+    data:string
+  };
 }
