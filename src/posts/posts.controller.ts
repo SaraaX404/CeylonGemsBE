@@ -1,4 +1,4 @@
-import {Controller, Get,Post, UseGuards, Body} from '@nestjs/common';
+import {Controller, Get,Post, UseGuards, Body, Param} from '@nestjs/common';
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import { Posts } from './posts.model';
 import { PostsService } from './posts.service';
@@ -20,6 +20,13 @@ export class PostsController {
     @UseGuards(JwtAuthGuard)
     getAll(){
         return this.postsService.getAll()
+    }
+
+    @Get('/:id')
+    @UseGuards(JwtAuthGuard)
+    getById(@Param('id') id){
+        console.log(id)
+        return this.postsService.getById(id)
     }
 
 }

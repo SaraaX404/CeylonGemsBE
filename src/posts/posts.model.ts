@@ -36,4 +36,5 @@ export const PostSchema = new mongoose.Schema({
     start_price: number;
     seller_id: Types.ObjectId;
     photos: string[4];
+    status?: 'PENDING' | 'OPEN' | 'CLOSED';
   }
