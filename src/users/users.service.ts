@@ -28,25 +28,27 @@ export class UsersService {
 
 
   async register(
-    name: string,
-    nic: string,
-
-    mobile: string,
-    email: string,
-    password: string,
-    kyc:string
+    first_name: string,
+  last_name: string,
+  nic: string,
+  rating: number,
+  address_01: string,
+  address_02:string | null = null,
+  country: string,
+  state: string,
+  city: string,
+  zip_code: string,
+  mobile: string,
+  email: string,
+  password: string,
+ 
   ) {
-
     const salt = 10
-
-    console.log(salt)
 
     const hash = await bcrypt.hash(password, salt)
 
-    console.log(hash)
-    const user = await this.UsersModel.create({name,nic,mobile,email,password:hash, kyc:{data:kyc}})
+    const user = await this.UsersModel.create({first_name, last_name, nic, rating, address_01, address_02, country, state, city, zip_code, email,mobile, password:hash})
 
-    console.log(user)
     return user
 
 

@@ -1,7 +1,11 @@
 import * as mongoose from 'mongoose';
 
 export const UserSchema = new mongoose.Schema({
-  name: {
+  first_name: {
+    type: String,
+    required: true,
+  },
+  last_name: {
     type: String,
     required: true,
   },
@@ -12,6 +16,30 @@ export const UserSchema = new mongoose.Schema({
   rating: {
     type:Number,
     default: 0
+  },
+  address_01:{
+    type:String,
+    required:true
+  },
+  address_02:{
+    type:String,
+    required:false
+  },
+  country:{
+    type:String,
+    required:true
+  },
+  state:{
+    type:String,
+    required:true
+  },
+  city:{
+    type:String,
+    required:true
+  },
+  zip_code:{
+    type:String,
+    required:true
   },
   mobile: {
     type: String,
@@ -32,22 +60,28 @@ export const UserSchema = new mongoose.Schema({
     },
     data:{
       type:String,
-      required:true
+      required:false
     }
   }
 });
 
 
 export interface User extends mongoose.Document{
-  id:string;
-  name:string;
-  nic:string;
-  type:string;
-  mobile:string;
-  email:string;
-  password:string;
-  kyc:{
-    verified:boolean,
-    data:string
+  first_name: string;
+  last_name: string;
+  nic: string;
+  rating: number;
+  address_01: string;
+  address_02?: string; // The question mark indicates an optional field
+  country: string;
+  state: string;
+  city: string;
+  zip_code: string;
+  mobile: string;
+  email: string;
+  password: string;
+  kyc: {
+    verified: boolean;
+    data?: string; // The question mark indicates an optional field
   };
 }

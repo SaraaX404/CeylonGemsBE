@@ -20,22 +20,24 @@ export class UsersController {
   async register(
     @Body()
     body: {
-      name: string;
+      first_name: string;
+      last_name: string;
       nic: string;
+      rating: number;
+      address_01: string;
+      address_02?: string; 
+      country: string;
+      state: string;
+      city: string;
+      zip_code: string;
       mobile: string;
       email: string;
       password: string;
-      kyc:string;
     },
   ) {
-    console.log(body)
+  
     const user = await this.userService.register(
-      body.name,
-      body.nic,
-      body.mobile,
-      body.email,
-      body.password,
-        body.kyc
+      body.first_name, body.last_name, body.nic, body.rating, body.address_01, body.address_02, body.country, body.state, body.city, body.zip_code, body.mobile, body.email, body.password
     );
 
     console.log(user)

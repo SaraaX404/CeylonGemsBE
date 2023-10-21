@@ -11,6 +11,7 @@ export class AuthService {
 
     async login(username:string, pwd:string){
         const user = await this.authService.getByUserName(username)
+        console.log(user)
         if(!user){
             return null
         }
@@ -24,7 +25,7 @@ export class AuthService {
     }
 
     async genToken(user:User):Promise<string>{
-        const payload = {id:user.id, name:user.name}
+        const payload = {id:user.id, name:user.first_name}
         const token = this.jwtService.sign(payload, {secret:"NOBODY DOES IT BETTER"})
         return token
     }
