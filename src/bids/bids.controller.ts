@@ -1,11 +1,17 @@
 import { Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { BidsService } from './bids.service';
+import { Bids } from './bids.model';
 
 @Controller('bids')
 export class BidsController {
 
+    constructor(private readonly bidsService: BidsService){}
+
+
     @Get()
-    get():string{
-        return "Get All Bids"
+    async get(){
+        const bids:Bids[] = await this.bidsService.getAll()
+        return bids
     }
 
     @Get(':id')

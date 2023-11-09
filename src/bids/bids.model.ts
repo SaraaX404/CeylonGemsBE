@@ -3,18 +3,26 @@ import * as mongoose from 'mongoose';
 export const BidsSchema = new mongoose.Schema({
   status: {
     type: String,
-    enum: ['ACCEPTED', 'REJECTED', 'IN_REVIEW'],
+    enum: ['ACCEPTED', 'REJECTED', 'PENDING'],
+    default:'PENDING'
   },
-  sellerID: {
+  buyerID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Users',
   },
   postID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
+    ref: 'Posts',
   },
   price: {
     type: Number,
     required: true,
   },
 });
+
+export interface Bids extends Document {
+  status:'ACCEPTED' | 'REJECTED' | 'PENDING',
+  buyerId: mongoose.Schema.Types.ObjectId,
+  postID: mongoose.Schema.Types.ObjectId,
+  price: number
+}
