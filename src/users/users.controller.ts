@@ -48,7 +48,10 @@ export class UsersController {
 
     @UseGuards(LocalAuthGuard)
     @Post('/login')
-    login(@Request() req){
-        return this.authService.genToken(req.user)
+    async login(@Request() req){
+      const token = await this.authService.genToken(req.user)
+      return{
+        token:token
+      }
     }
 }
