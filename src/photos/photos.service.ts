@@ -6,34 +6,27 @@ import { firebaseApp } from 'firebase.service';
 
 @Injectable()
 export class PhotosService {
-    constructor(@InjectModel('Photos') private readonly PhotosModel: Model<Photo>) {}
+  constructor(
+    @InjectModel('Photos') private readonly PhotosModel: Model<Photo>,
+  ) {}
 
-    async create(file:Express.Multer.File){
+  async create(file: Express.Multer.File) {
+    const storage = firebaseApp.storage();
+    const bucket = storage.bucket();
 
-        const storage = firebaseApp.storage()
-        const bucket = storage.bucket();
+    const storageOptions = {
+      destination: `photos/${file.originalname}`,
+      metadata: {
+        contentType: file.mimetype,
+      },
+    };
 
-    
-
-        const storageOptions = {
-            destination: `photos/${file.originalname}`,
-            metadata: {
-                contentType: file.mimetype,
-            },
-        };
-
-        try {
-            const res= await bucket.upload(file.path, storageOptions);
-            console.log(res);
-            return 'File uploaded successfully';
-        } catch (error) {
-            console.error('Error uploading file to Firebase Storage:', error);
-            throw new Error('Failed to upload file to Firebase Storage');
-        }
-        
-    
-        
-        
-
+    try {
+      const res = await bucket.upload(file.path, storageOptions);
+      return this.PhotosModel.create({ photo: res[0].id });
+    } catch (error) {
+      console.error('Error uploading file to Firebase Storage:', error);
+      throw new Error('Failed to upload file to Firebase Storage');
     }
+  }
 }

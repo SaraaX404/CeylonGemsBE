@@ -58,10 +58,10 @@ export const UserSchema = new mongoose.Schema({
       type:Boolean,
       default:false
     },
-    data:{
-      type:String,
+    data:[{
+      type:mongoose.Schema.Types.ObjectId,
       required:false
-    }
+    }]
   }
 });
 
@@ -82,6 +82,6 @@ export interface User extends mongoose.Document{
   password: string;
   kyc: {
     verified: boolean;
-    data?: string; // The question mark indicates an optional field
+    data?:[mongoose.Schema.Types.ObjectId]; // The question mark indicates an optional field
   };
 }

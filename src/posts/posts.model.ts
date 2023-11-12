@@ -16,8 +16,9 @@ export const PostSchema = new mongoose.Schema({
         default: 'PENDING',
       },
     photos:[{
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'Photos',
+        required:false
       }],
     start_price: {
       type: Number,
@@ -25,7 +26,7 @@ export const PostSchema = new mongoose.Schema({
     },
     seller_id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'Users',
       required: true,
     },
   });

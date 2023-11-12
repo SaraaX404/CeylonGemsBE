@@ -1,9 +1,10 @@
-import { Controller, Post, Get, Body,Request,UseGuards } from '@nestjs/common';
+import { Controller, Post, Get, Body,Request,UseGuards, Patch, Param, Put } from '@nestjs/common';
 import { User } from './user.model';
 import { UsersService } from './users.service';
 import * as mongoose from "mongoose";
 import {LocalAuthGuard} from "../auth/local-auth.guard";
 import {AuthService} from "../auth/auth.service";
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -53,5 +54,15 @@ export class UsersController {
       return{
         token:token
       }
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Put('/Update')
+    async addKyc(@Body() kyc:{data:mongoose.Schema.Types.ObjectId[]}, @Request() req){
+      console.log(req.user)
+      if(req.user._id){
+        return this.userService.addKycByUserId(req.user._id, kyc.data)
+      }
+      
     }
 }

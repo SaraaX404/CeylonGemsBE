@@ -11,7 +11,6 @@ export class AuthService {
 
     async login(username:string, pwd:string){
         const user = await this.authService.getByUserName(username)
-        console.log(user)
         if(!user){
             return null
         }
