@@ -29,6 +29,14 @@ export const PostSchema = new mongoose.Schema({
       ref: 'Users',
       required: true,
     },
+    fixed:{
+      type:Boolean,
+      default:false
+    },
+    end_date:{
+      type:Date,
+      required:false
+    }
   });
 
   export interface Posts extends Document {
@@ -36,6 +44,8 @@ export const PostSchema = new mongoose.Schema({
     description: string;
     start_price: number;
     seller_id: Types.ObjectId;
-    photos: string[4];
+    photos: mongoose.Schema.Types.ObjectId[];
     status?: 'PENDING' | 'OPEN' | 'CLOSED';
+    fixed?:boolean,
+    end_date?:Date
   }

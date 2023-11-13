@@ -1,4 +1,4 @@
-import {Controller, Get,Post, UseGuards, Body, Param} from '@nestjs/common';
+import {Controller, Get,Post, UseGuards, Body, Param, Request} from '@nestjs/common';
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import { Posts } from './posts.model';
 import { PostsService } from './posts.service';
@@ -11,8 +11,13 @@ export class PostsController {
 
     @Post()
     @UseGuards(JwtAuthGuard)
-    createPost(@Body() body:Posts){
-        return this.postsService.create(body)
+    createPost(@Body() body:Omit<Posts,'seller_id'>, @Request() req){
+        const postData:Posts = {
+            ...body,
+            seller_id:req.user._id
+        }
+
+        return this.postsService.create(postData)
     }
 
 

@@ -12,7 +12,7 @@ export class PostsService {
     }
 
     getAll(){
-        return this.PostsModel.find({}).populate('photos');
+        return this.PostsModel.find({}).populate('photos seller_id');
     }
 
     getById(id:mongoose.Schema.Types.ObjectId){
