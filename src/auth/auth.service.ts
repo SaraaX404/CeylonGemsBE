@@ -8,21 +8,16 @@ import {JwtService} from "@nestjs/jwt";
 export class AuthService {
     constructor(private authService:UsersService, private jwtService:JwtService) {
     }
-
     async login(username:string, pwd:string){
         const user = await this.authService.getByUserName(username)
         if(!user){
             return null
         }
-
         if(! await bcrypt.compare(pwd, user.password)){
             return null
         }
-
-
         return user
     }
-
     async genToken(user:User):Promise<string>{
         const payload = {id:user.id, name:user.first_name}
         const token = this.jwtService.sign(payload, {secret:"NOBODY DOES IT BETTER"})

@@ -7,8 +7,6 @@ import { PostsService } from './posts.service';
 export class PostsController {
 
     constructor(private readonly postsService: PostsService){}
-
-
     @Post()
     @UseGuards(JwtAuthGuard)
     createPost(@Body() body:Omit<Posts,'seller_id'>, @Request() req){
@@ -19,7 +17,6 @@ export class PostsController {
 
         return this.postsService.create(postData)
     }
-
 
     @Get()
     @UseGuards(JwtAuthGuard)

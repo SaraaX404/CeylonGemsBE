@@ -16,7 +16,7 @@ export class PostsService {
     }
 
     getById(id:mongoose.Schema.Types.ObjectId){
-        return this.PostsModel.findById(id)
+        return this.PostsModel.findById(id).populate('photos seller_id')
     }
 
 
