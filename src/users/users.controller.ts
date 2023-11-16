@@ -65,4 +65,10 @@ export class UsersController {
       }
       
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('/me')
+    async getMe(@Request() req){
+      return this.userService.getUserById(req.user._id)
+    }
 }

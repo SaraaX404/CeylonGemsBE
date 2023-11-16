@@ -72,7 +72,7 @@ export interface User extends mongoose.Document{
   nic: string;
   rating: number;
   address_01: string;
-  address_02?: string; // The question mark indicates an optional field
+  address_02?: string;
   country: string;
   state: string;
   city: string;
@@ -82,6 +82,6 @@ export interface User extends mongoose.Document{
   password: string;
   kyc: {
     verified: boolean;
-    data?:[mongoose.Schema.Types.ObjectId]; // The question mark indicates an optional field
+    data?:[mongoose.Schema.Types.ObjectId];
   };
 }
