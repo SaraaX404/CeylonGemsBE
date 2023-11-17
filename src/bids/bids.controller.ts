@@ -31,8 +31,9 @@ export class BidsController {
     }
 
     @Get('/seller/:id')
-    getBySeller(@Param('id') id){
-        return this.bidsService.getBySeller(id)
+    async getBySeller(@Param('id') id){
+        const bit  =await this.bidsService.getBySeller(id)
+        return bit
     }
 
     @Get('/buyer/:id')

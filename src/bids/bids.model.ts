@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import { Posts } from 'src/posts/posts.model';
 
 export const BidsSchema = new mongoose.Schema({
   status: {
@@ -26,3 +27,8 @@ export interface Bids extends Document {
   postID: mongoose.Schema.Types.ObjectId,
   price: number
 }
+
+export type AuctionItem = Omit<Bids, 'postID'> & {
+  postID:Posts
+}
+

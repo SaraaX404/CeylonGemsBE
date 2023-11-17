@@ -33,6 +33,10 @@ export const PostSchema = new mongoose.Schema({
       type:Boolean,
       default:false
     },
+    highestPrice:{
+      type:Number,
+      default:0
+    },
     end_date:{
       type:Date,
       required:false
@@ -43,6 +47,7 @@ export const PostSchema = new mongoose.Schema({
     name: string;
     description: string;
     start_price: number;
+    highestPrice: number;
     seller_id: Types.ObjectId;
     photos: mongoose.Schema.Types.ObjectId[];
     status?: 'PENDING' | 'OPEN' | 'CLOSED';
