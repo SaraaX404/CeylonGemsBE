@@ -12,10 +12,7 @@ export class BidsController {
         const bids:Bids[] = await this.bidsService.getAll()
         return bids
     }
-    @Get(':id')
-    getById(@Param('id') bidID:string):string{
-        return `Get Bids by ${bidID}`
-    }
+  
     @Post()
     @UseGuards(JwtAuthGuard)
     create(@Body() body, @Request() req){
@@ -30,9 +27,12 @@ export class BidsController {
         return `Delete Bid by ${bidID}`
     }
 
-    @Get('/seller/:id')
-    async getBySeller(@Param('id') id){
-        const bit  =await this.bidsService.getBySeller(id)
+
+    @Get('/seller')
+    @UseGuards(JwtAuthGuard)
+    async getBySeller(@Request() req){
+
+        const bit  = await this.bidsService.getBySeller(req.user._id)
         return bit
     }
 
@@ -44,6 +44,11 @@ export class BidsController {
     @Get('/post/:id')
     getByPost(@Param('id') id){
         return this.bidsService.getByBuyer(id)
+    }
+
+    @Get(':id')
+    getById(@Param('id') bidID:string):string{
+        return `Get Bids by ${bidID}`
     }
 
 

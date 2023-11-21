@@ -63,12 +63,27 @@ export class UsersController {
       if(req.user._id){
         return this.userService.addKycByUserId(req.user._id, kyc.data)
       }
-      
+    }
+
+    @Put('/UpdateUser/:id')
+    async updateStatus(@Body() data, @Param('id') id){
+      return this.userService.updateStatus(id, data)
     }
 
     @UseGuards(JwtAuthGuard)
     @Get('/me')
     async getMe(@Request() req){
       return this.userService.getUserById(req.user._id)
+    }
+
+    @Get('/kyc_requests')
+    async kycVerify(){
+      return this.userService.getKycRequests()
+    }
+
+
+    @Get('/status')
+    async getStatus(){
+      return this.userService.getStatus()
     }
 }

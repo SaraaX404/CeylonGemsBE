@@ -24,11 +24,20 @@ export class PostsController {
         return this.postsService.getAll()
     }
 
+    @Get('/MyPosts')
+    @UseGuards(JwtAuthGuard)
+    getBySeller(@Request() req){
+
+      return this.postsService.getBySeller(req.user._id)
+    }
+
     @Get('/:id')
     @UseGuards(JwtAuthGuard)
     getById(@Param('id') id){
         console.log(id)
         return this.postsService.getById(id)
     }
+
+    
 
 }

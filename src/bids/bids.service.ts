@@ -33,13 +33,23 @@ export class BidsService {
         return this.BidsModel.findById(id)
     }
 
-    async getBySeller(id:mongoose.Schema.Types.ObjectId){
-        
-        let res:AuctionItem[] = await this.BidsModel.find().populate({ 'path': 'postID', match: { seller_id: id } })
-        
-        return res
-
-    }
+    async getBySeller(id: mongoose.Schema.Types.ObjectId) {
+        try {
+          let res = await this.BidsModel.find()
+            .populate({
+              path: 'postID',
+              match: { seller_id: id },
+              populate: { path: 'photos' } // Populate the 'photos' array within 'postID'
+            })
+            .exec();
+      
+          return res;
+        } catch (error) {
+          // Handle error appropriately
+          console.error(error);
+          throw error;
+        }
+      }
 
     getByPost(id:mongoose.Schema.Types.ObjectId){
         return this.BidsModel.find({postID:id})
