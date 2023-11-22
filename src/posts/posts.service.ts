@@ -23,5 +23,13 @@ export class PostsService {
         return this.PostsModel.find({seller_id:id}).populate('photos')
     }
 
+    getPending(){
+        return this.PostsModel.find({status:'PENDING'}).populate('photos seller_id')
+    }
+
+    updateStatus(id, data){
+        return this.PostsModel.findByIdAndUpdate(id, {status:data.status})
+    }
+
 
 }

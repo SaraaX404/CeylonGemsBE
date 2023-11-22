@@ -1,4 +1,4 @@
-import {Controller, Get,Post, UseGuards, Body, Param, Request} from '@nestjs/common';
+import {Controller, Get,Post, UseGuards, Body, Param, Request, Put} from '@nestjs/common';
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import { Posts } from './posts.model';
 import { PostsService } from './posts.service';
@@ -18,8 +18,13 @@ export class PostsController {
         return this.postsService.create(postData)
     }
 
+    @Get('/pending')
+    getPending(){
+        return this.postsService.getPending()
+    }
+
     @Get()
-    @UseGuards(JwtAuthGuard)
+    //@UseGuards(JwtAuthGuard)
     getAll(){
         return this.postsService.getAll()
     }
@@ -37,6 +42,13 @@ export class PostsController {
         console.log(id)
         return this.postsService.getById(id)
     }
+
+    @Put('/UpdateStatus/:id')
+    updateStatus(@Param('id') id, @Body() body){
+        return this.postsService.updateStatus(id, body)
+    }
+
+    
 
     
 
