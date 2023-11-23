@@ -16,10 +16,15 @@ export class BidsService {
         await this.PostsModel.findByIdAndUpdate(data.postID, {highestPrice:data.price})
        }
 
-       return this.BidsModel.create({
+       console.log(id)
+
+       let bid = await this.BidsModel.create({
         ...data,
-        buyerId:id
+        buyerID:id
        })
+
+       console.log(bid)
+       return bid
 
 
 
@@ -56,6 +61,9 @@ export class BidsService {
     }
 
     getByBuyer(id:mongoose.Schema.Types.ObjectId){
-        return this.BidsModel.find({buyerId:id})
+        return this.BidsModel.find({buyerID:id}).populate({
+          path: 'postID',
+          populate: { path: 'photos seller_id' } // Populate the 'photos' array within 'postID'
+        })
     }
 }

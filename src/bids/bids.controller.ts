@@ -16,6 +16,7 @@ export class BidsController {
     @Post()
     @UseGuards(JwtAuthGuard)
     create(@Body() body, @Request() req){
+        console.log(req.user)
         return this.bidsService.create(body, req.user._id)
     }
     @Patch()
@@ -36,9 +37,11 @@ export class BidsController {
         return bit
     }
 
-    @Get('/buyer/:id')
-    getByBuyer(@Param('id') id){
-        return this.bidsService.getByBuyer(id)
+    @Get('/buyer')
+    @UseGuards(JwtAuthGuard)
+    getByBuyer(@Request() req){
+        console.log(req.user)
+        return this.bidsService.getByBuyer(req.user._id)
     }
 
     @Get('/post/:id')

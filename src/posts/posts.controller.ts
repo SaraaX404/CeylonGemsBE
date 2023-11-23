@@ -29,6 +29,13 @@ export class PostsController {
         return this.postsService.getAll()
     }
 
+    @Get('/approved')
+    @UseGuards(JwtAuthGuard)
+    getApproved(@Request() req){
+        return this.postsService.getApproved(req.user._id)
+    }
+
+
     @Get('/MyPosts')
     @UseGuards(JwtAuthGuard)
     getBySeller(@Request() req){

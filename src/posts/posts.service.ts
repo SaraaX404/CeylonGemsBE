@@ -15,6 +15,10 @@ export class PostsService {
         return this.PostsModel.find({}).populate('photos seller_id');
     }
 
+    async getApproved(id:mongoose.Types.ObjectId){
+        return this.PostsModel.find({ status: 'OPEN', seller_id: { $ne: id } }).populate('photos seller_id');
+    }
+
     getById(id:mongoose.Schema.Types.ObjectId){
         return this.PostsModel.findById(id).populate('photos seller_id')
     }
