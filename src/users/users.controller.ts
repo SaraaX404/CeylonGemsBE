@@ -36,6 +36,7 @@ export class UsersController {
       password: string;
     },
   ) {
+    console.log('working')
   
     const user = await this.userService.register(
       body.first_name, body.last_name, body.nic, body.rating, body.address_01, body.address_02, body.country, body.state, body.city, body.zip_code, body.mobile, body.email, body.password
@@ -43,7 +44,11 @@ export class UsersController {
 
     console.log(user)
 
-    return user
+    const token = await this.authService.genToken(user)
+
+    return{
+      token:token
+    }
   }
 
 
