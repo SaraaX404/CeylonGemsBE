@@ -91,4 +91,13 @@ export class UsersController {
     async getStatus(){
       return this.userService.getStatus()
     }
+
+    @Get('/:id')
+    async getUserById(@Param('id') id){
+      const user = await this.userService.getUserById(id)
+
+      return{
+        name:`${user.first_name} ${user.last_name}`
+      }
+    }
 }
