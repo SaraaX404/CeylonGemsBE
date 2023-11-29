@@ -46,7 +46,7 @@ export class BidsController {
 
     @Get('/post/:id')
     getByPost(@Param('id') id){
-        return this.bidsService.getByBuyer(id)
+        return this.bidsService.getByPost(id)
     }
 
     @Get(':id')

@@ -56,9 +56,13 @@ export class BidsService {
         }
       }
 
-    getByPost(id:mongoose.Schema.Types.ObjectId){
-        return this.BidsModel.find({postID:id})
+    async getByPost(id:mongoose.Schema.Types.ObjectId){
+        let bids = await this.BidsModel.find({postID:id}).populate('buyerID')
+        console.log(bids)
+        return bids
     }
+
+    
 
     getByBuyer(id:mongoose.Schema.Types.ObjectId){
         return this.BidsModel.find({buyerID:id}).populate({
