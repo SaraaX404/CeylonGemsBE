@@ -51,7 +51,7 @@ export class PostsController {
     }
 
     @Put('/UpdateStatus/:id')
-    updateStatus(@Param('id') id, @Body() body){
+    updateStatus(@Param('id') id, @Body() body){   
         return this.postsService.updateStatus(id, body)
     }
 

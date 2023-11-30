@@ -62,12 +62,14 @@ export class BidsService {
         return bids
     }
 
-    
-
     getByBuyer(id:mongoose.Schema.Types.ObjectId){
         return this.BidsModel.find({buyerID:id}).populate({
           path: 'postID',
           populate: { path: 'photos seller_id' } // Populate the 'photos' array within 'postID'
         })
+    }
+
+    updateStatus(id:mongoose.Types.ObjectId, data){
+      return this.BidsModel.findByIdAndUpdate(id, {status:data.status}, {new:true})
     }
 }
